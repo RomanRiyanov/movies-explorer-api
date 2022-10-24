@@ -55,32 +55,9 @@ const updateUser = (req, res, next) => {
     });
 };
 
-// const updateAvatar = (req, res, next) => {
-//   const { avatar } = req.body;
-
-//   User.findByIdAndUpdate(
-//     req.user._id,
-//     { avatar },
-//     {
-//       new: true,
-//       runValidators: true,
-//     },
-//   )
-//     .orFail(() => {
-//       throw new NotFoundError('Пользователь по указанному _id не найден');
-//     })
-//     .then((user) => res.send(user))
-//     .catch((err) => {
-//       if (err.name === 'ValidationError' || err.name === 'CastError') {
-//         next(new InputError('Переданы некорректные данные при обновлении профиля'));
-//       } else next(err);
-//     });
-// };
-
 module.exports = {
   getUsers,
   getCurrentUser,
   getUserById,
   updateUser,
-  // updateAvatar,
 };

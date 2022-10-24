@@ -1,8 +1,8 @@
 const allowedCors = [
-  'http://mesto.romanriyanov.nomoredomains.icu',
-  'https://mesto.romanriyanov.nomoredomains.icu',
-  'http://api.mesto.romanriyanov.nomoredomains.icu',
-  'https://api.mesto.romanriyanov.nomoredomains.icu',
+  'http://roman.diploma.nomoredomains.icu',
+  'https://roman.diploma.nomoredomains.icu',
+  'http://api.roman.diploma.nomoredomains.icu',
+  'https://api.roman.diploma.nomoredomains.icu',
   'http://www.mesto.romanriyanov.nomoredomains.icu',
   'https://www.mesto.romanriyanov.nomoredomains.icu',
   'http://localhost:3000',

@@ -6,17 +6,6 @@ const {
   getMovies, createMovie, deleteMovie,
 } = require('../controllers/movies');
 
-// # возвращает все сохранённые текущим  пользователем фильмы
-// GET /movies
-
-// # создаёт фильм с переданными в теле
-// # country, director, duration, year, description, image,
-// trailer, nameRU, nameEN и thumbnail, movieId
-// POST /movies
-
-// # удаляет сохранённый фильм по id
-// DELETE /movies/_id
-
 router.get('/', getMovies);
 router.delete('/:movieId', celebrate({
   params: Joi.object().keys({
@@ -37,23 +26,5 @@ router.post('/', celebrate({
     nameEN: Joi.string().min(2).max(30),
   }),
 }), createMovie);
-
-// router.get('/:userId', celebrate({
-//   params: Joi.object().keys({
-//     userId: Joi.string().alphanum().hex().length(24),
-//   }),
-// }), getUserById);
-
-// router.patch('/me', celebrate({
-//   body: Joi.object().keys({
-//     name: Joi.string().min(2).max(30),
-//     about: Joi.string().min(2).max(30),
-//   }),
-// }), updateUser);
-// router.patch('/me/avatar', celebrate({
-//   body: Joi.object().keys({
-//     avatar: Joi.string().pattern(LinkRegExp),
-//   }),
-// }), updateAvatar);
 
 module.exports = router;

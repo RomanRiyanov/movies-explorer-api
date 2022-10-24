@@ -6,7 +6,6 @@ const cookieParser = require('cookie-parser');
 const { celebrate, errors, Joi } = require('celebrate');
 const routerUsers = require('./routes/users');
 const routerMovies = require('./routes/movies');
-// const routerCards = require('./routes/cards_routes');
 
 const { login, createUser } = require('./controllers/auth');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
@@ -54,7 +53,6 @@ app.post('/signout', (req, res, next) => {
 
 app.use('/users', routerUsers);
 app.use('/movies', routerMovies);
-// app.use('/cards', routerCards);
 
 app.use('*', (req, res, next) => {
   next(new NotFoundError('Страница не найдена'));
