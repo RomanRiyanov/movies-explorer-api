@@ -8,18 +8,16 @@ const ConflictError = require('../errors/conflict_err');
 
 const createUser = (req, res, next) => {
   const {
-    name, about, avatar, email, password,
+    name, email, password,
   } = req.body;
 
   bcrypt.hash(password, 10)
     .then((hash) => User.create({
-      name, about, avatar, email, password: hash,
+      name, email, password: hash,
     }))
     .then((user) => res.send({
       _id: user._id,
       name: user.name,
-      about: user.about,
-      avatar: user.avatar,
       email: user.email,
     }))
     .catch((err) => {
@@ -52,7 +50,7 @@ const login = (req, res, next) => {
     })
     .catch(() => {
       res.cookie('jwt', '', { expires: new Date() });
-      next(new AuthorizationError('Необходима авторизация'));
+      next(new AuthorizationError('Неправильная почта или пароль'));
     });
 };
 

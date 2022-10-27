@@ -5,12 +5,12 @@ const {
   getUsers, updateUser, getCurrentUser,
 } = require('../controllers/users');
 
-router.get('/', getUsers);
-router.get('/me', getCurrentUser);
+router.get('/users', getUsers);
+router.get('/users/me', getCurrentUser);
 
-router.patch('/me', celebrate({
+router.patch('/users/me', celebrate({
   body: Joi.object().keys({
-    name: Joi.string().min(2).max(30),
+    name: Joi.string().min(2).max(30).required(),
     email: Joi.string().email().required(),
   }),
 }), updateUser);

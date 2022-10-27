@@ -18,6 +18,7 @@ const createMovie = (req, res, next) => {
     director,
     duration,
     year,
+    description,
     image,
     trailerLink,
     thumbnail,
@@ -30,6 +31,7 @@ const createMovie = (req, res, next) => {
     country,
     director,
     duration,
+    description,
     year,
     image,
     trailerLink,
@@ -63,7 +65,7 @@ const deleteMovie = (req, res, next) => {
         throw new ForbiddenError('Нельзя удалять чужую карточку');
       }
       Movie.findByIdAndDelete(movieId)
-        .then((cardSelected) => res.send(cardSelected))
+        .then((movieSelected) => res.send(movieSelected))
         .catch(next);
     })
     .catch((err) => {

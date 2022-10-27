@@ -1,18 +1,14 @@
 const mongoose = require('mongoose');
-const isURL = require('validator/lib/isURL');
+const validator = require('validator');
 
 const movieSchema = new mongoose.Schema({
   country: {
     type: String,
     required: true,
-    minlength: 2,
-    maxlength: 30,
   },
   director: {
     type: String,
     required: true,
-    minlength: 2,
-    maxlength: 30,
   },
   duration: {
     type: Number,
@@ -21,22 +17,24 @@ const movieSchema = new mongoose.Schema({
   year: {
     type: String,
     required: true,
-    minlength: 2,
-    maxlength: 10,
+  },
+  description: {
+    type: String,
+    required: true,
   },
   image: {
     type: String,
     required: true,
     validate: {
-      validator: (value) => { isURL(value); },
-      message: 'Неправльный формат ссылки',
+      validator: (value) => validator.isURL(value),
+      message: 'Неправильный формат ссылки',
     },
   },
   trailerLink: {
     type: String,
     required: true,
     validate: {
-      validator: (value) => { isURL(value); },
+      validator: (value) => validator.isURL(value),
       message: 'Неправльный формат ссылки',
     },
   },
@@ -44,7 +42,7 @@ const movieSchema = new mongoose.Schema({
     type: String,
     required: true,
     validate: {
-      validator: (value) => { isURL(value); },
+      validator: (value) => validator.isURL(value),
       message: 'Неправльный формат ссылки',
     },
   },
@@ -54,22 +52,16 @@ const movieSchema = new mongoose.Schema({
     required: true,
   },
   movieId: {
-    type: String,
+    type: Number,
     required: true,
-    minlength: 2,
-    maxlength: 30,
   },
   nameRU: {
     type: String,
     required: true,
-    minlength: 2,
-    maxlength: 30,
   },
   nameEN: {
     type: String,
     required: true,
-    minlength: 2,
-    maxlength: 30,
   },
 });
 

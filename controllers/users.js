@@ -1,6 +1,8 @@
 const User = require('../models/user');
 
 const NotFoundError = require('../errors/not_found_err');
+const ConflictError = require('../errors/conflict_err');
+
 const InputError = require('../errors/input_err');
 
 const getUsers = (req, res, next) => {
@@ -51,6 +53,8 @@ const updateUser = (req, res, next) => {
     .catch((err) => {
       if (err.name === 'ValidationError' || err.name === 'CastError') {
         next(new InputError('Переданы некорректные данные при обновлении профиля'));
+      } else if (err.code === 11000) {
+        next(new ConflictError('Недостаточно прав для изменения чужого профиля'));
       } else next(err);
     });
 };

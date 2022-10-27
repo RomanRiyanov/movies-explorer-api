@@ -1,29 +1,46 @@
 const router = require('express').Router();
 const { celebrate, Joi } = require('celebrate');
-const { LinkRegExp } = require('../utils/constants');
+const validator = require('validator');
+// const { LinkRegExp } = require('../utils/constants');
 
 const {
   getMovies, createMovie, deleteMovie,
 } = require('../controllers/movies');
 
-router.get('/', getMovies);
-router.delete('/:movieId', celebrate({
+router.get('/movies', getMovies);
+router.delete('/movies/:movieId', celebrate({
   params: Joi.object().keys({
-    movieId: Joi.string().alphanum().hex().length(24),
+    movieId: Joi.number().integer().positive().required(),
   }),
 }), deleteMovie);
-router.post('/', celebrate({
+router.post('/movies', celebrate({
   body: Joi.object().keys({
-    country: Joi.string().min(2).max(30),
-    director: Joi.string().min(2).max(30),
-    duration: Joi.number(),
-    year: Joi.string().min(2).max(10),
-    image: Joi.string().pattern(LinkRegExp),
-    trailerLink: Joi.string().pattern(LinkRegExp),
-    thumbnail: Joi.string().pattern(LinkRegExp),
-    movieId: Joi.string().alphanum().hex().length(24),
-    nameRU: Joi.string().min(2).max(30),
-    nameEN: Joi.string().min(2).max(30),
+    country: Joi.string().required(),
+    director: Joi.string().required(),
+    duration: Joi.number().required(),
+    description: Joi.string().required(),
+    year: Joi.string().required(),
+    image: Joi.string().required().custom((value, helpers) => {
+      if (validator.isURL(value)) {
+        return value;
+      }
+      return helpers.message('Поле image заполнено некорректно');
+    }),
+    trailerLink: Joi.string().required().custom((value, helpers) => {
+      if (validator.isURL(value)) {
+        return value;
+      }
+      return helpers.message('Поле trailerLink заполнено некорректно');
+    }),
+    thumbnail: Joi.string().required().custom((value, helpers) => {
+      if (validator.isURL(value)) {
+        return value;
+      }
+      return helpers.message('Поле thumbnail заполнено некорректно');
+    }),
+    movieId: Joi.number().integer().positive().required(),
+    nameRU: Joi.string().required(),
+    nameEN: Joi.string().required(),
   }),
 }), createMovie);
 
