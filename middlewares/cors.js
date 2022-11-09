@@ -5,6 +5,8 @@ const allowedCors = [
   'https://api.roman.diploma.nomoredomains.icu',
   'http://www.mesto.romanriyanov.nomoredomains.icu',
   'https://www.mesto.romanriyanov.nomoredomains.icu',
+  'http://api.nomoreparties.co/beatfilm-movies',
+  'https://api.nomoreparties.co/beatfilm-movies',
   'http://localhost:3000',
   'https://localhost:3000',
   'https://localhost:3001',
