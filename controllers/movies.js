@@ -53,7 +53,8 @@ const deleteMovie = (req, res, next) => {
   const userId = req.user._id;
   const { movieId } = req.params;
 
-  Movie.findById(movieId)
+  // Movie.findById(movieId)
+  Movie.findOne({ movieId })
     .then((movie) => {
       if (!movie) {
         throw new NotFoundError('Передан несуществующий _id карточки');
@@ -64,13 +65,13 @@ const deleteMovie = (req, res, next) => {
       if (owner !== userId) {
         throw new ForbiddenError('Нельзя удалять чужую карточку');
       }
-      Movie.findByIdAndDelete(movieId)
+      Movie.findByIdAndDelete(movie._id)
         .then((movieSelected) => res.send(movieSelected))
         .catch(next);
     })
     .catch((err) => {
       if (err.name === 'CastError') {
-        next(new InputError('Переданы некорректные данные для постановки/снятии лайка'));
+        next(new InputError('Переданы некорректные данные удалении карточки'));
       } else next(err);
     });
 };
