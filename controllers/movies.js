@@ -5,8 +5,13 @@ const InputError = require('../errors/input_err');
 const ForbiddenError = require('../errors/forbidden_err');
 
 const getMovies = (req, res, next) => {
+  const userId = req.user._id;
+
   Movie.find({})
-    .then((cards) => res.send(cards))
+    .then((movies) => {
+      const result = movies.filter((movie) => userId === movie.owner.toString());
+      res.send(result);
+    })
     .catch((err) => {
       next(err);
     });
